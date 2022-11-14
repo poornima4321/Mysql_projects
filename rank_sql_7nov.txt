@@ -1,0 +1,120 @@
+show databases;
+use classicmodels
+
+show tables
+
+select * from products limit 3
+select * from productlines limit 3
+
+select productcode,productname,textdescription,p.productline 
+from products p inner join productlines pl on
+p.productline =pl.productline
+
+select productcode,productname,textdescription
+from products  inner join productlines using
+(productline)
+-- outer join
+select customerName,orderNumber,customerNumber
+from customers left outer join orders using
+(customernumber)
+where ordernumber is null
+
+-- right outer
+
+select customerName,orderNumber,customerNumber
+from orders right outer join customers using
+(customernumber)
+where ordernumber is null
+-- cross join
+select * from customers
+select * from orders 
+select customerName,orderNumber,c.customerNumber
+from orders cross join customers c
+
+-- self join 1088 -1056 -1002 reports
+select * from employees where employeeNumber=1056
+
+select e1.employeenumber,e1.firstname as manager,e2.employeenumber,e2.firstname as 'reports to'
+ from employees e1 inner join employees e2 
+ on e1.employeeNumber = e2.reportsTo
+ 
+-- sub queries
+
+select * from employees;
+select * from offices;
+
+select * from employees
+ where officeCode in (select officeCode from offices where country ='USA')
+ 
+ select customername from customers where customernumber
+ not in (select distinct customernumber from orders)
+ 
+ -- corelated subquery
+ 
+ select productname,buyprice from products p1 where 
+ buyprice > (select avg(buyprice) from products
+ where productline=p1.productline)
+ 
+ -- cte
+ 
+ select * from employees
+ where officeCode in (select officeCode from offices where country ='USA')
+-- cte common table expression
+with a as 
+(select officeCode from offices where country ='USA')
+select * from employees
+
+with cte as 
+(select officeCode from offices where country ='USA')
+select * from employees join cte
+
+-- Rank importtant function
+
+update products set buyprice
+select productcode,productname,buyprice,
+ row_number() over(order by buyprice desc) Rownumber
+ from products;
+ 
+ select productcode,productname,buyprice,
+ rank() over(order by buyprice desc) Rownumber
+ from products; -- skips next value
+ 
+ select productcode,productname,buyprice,
+ dense_rank() over(order by buyprice desc) Rownumber
+ from products;
+ 
+ 
+ -- partition by
+ select distinct productvendor from products
+ 
+ 
+ 
+ select productcode,productname,productvendor,
+ buyprice,
+rank() over(partition by productvendor order by buyprice desc) 
+as Rank1 from products
+
+-- if you want only rank =1 then use cte
+with prodRanks as
+(
+select productcode,productname,productvendor,
+ buyprice,
+rank() over(partition by productvendor order by buyprice desc) 
+as 'Rank1' from products
+)
+select productcode,productname,productvendor,
+ buyprice,Rank1  from prodRanks
+ where Rank1 >= 1 and Rank1 <= 3
+ order by Rank1
+ 
+ -- next one
+ 
+
+
+ 
+ 
+
+
+
+
+
