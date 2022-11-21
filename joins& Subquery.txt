@@ -1,0 +1,35 @@
+Joins:
+
+select e1.employeenumber,e1.firstname as manager,e2.employeenumber,e2.firstname as 'reports to'
+ from employees e1 inner join employees e2 
+ on e1.employeeNumber = e2.reportsTo
+
+select customerName,orderNumber,customerNumber
+from orders right outer join customers using
+(customernumber)
+where ordernumber is null
+
+select customerName,orderNumber,customerNumber
+from orders left outer join customers using
+(customernumber)
+where ordernumber is null
+
+sub query:
+select * from employees;
+select * from offices;
+
+select * from employees
+ where officeCode in (select officeCode from offices where country ='USA')
+ 
+ select customername from customers where customernumber
+ not in (select distinct customernumber from orders)
+ 
+corelated subquery
+ 
+ select productname,buyprice from products p1 where 
+ buyprice > (select avg(buyprice) from products
+ where productline=p1.productline)
+
+select * from employees
+ where officeCode in (select officeCode from offices where country ='USA')
+
