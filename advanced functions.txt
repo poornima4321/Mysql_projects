@@ -1,0 +1,49 @@
+Advanced fuctions:
+Return the first non-null value in a list:
+
+SELECT COALESCE(NULL, NULL, NULL, 'W3Schools.com', NULL, 'Example.com');
+
+output:
+
+W3Schools.com
+
+Convert an expression to int:
+
+SELECT CONVERT(int, 25.65);
+output:
+
+25
+
+Return the specified value IF the expression is NULL, otherwise return the expression:
+
+SELECT ISNULL(NULL, 'W3Schools.com');
+
+W3Schools.com
+
+The ISNUMERIC() function tests whether an expression is numeric.
+
+This function returns 1 if the expression is numeric, otherwise it returns 0.
+
+Syntax
+ISNUMERIC(expression)
+SELECT ISNUMERIC(4567);
+out put:
+1
+
+The NULLIF() function returns NULL if two expressions are equal, otherwise it returns the first expression.
+
+Syntax
+NULLIF(expr1, expr2)
+SELECT NULLIF(25, 25);
+output:
+Convert a value to an int datatype:
+
+SELECT CAST(25.65 AS int);
+The CAST() function converts a value (of any type) into a specified datatype.
+output:
+25
+
+Return "YES" if the condition is TRUE, or "NO" if the condition is FALSE:
+
+SELECT IIF(500<1000, 'YES', 'NO');
+output:
