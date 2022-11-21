@@ -1,0 +1,62 @@
+SELECT COUNT(ProductID)
+FROM Products;
+
+SELECT 
+AVG(Price)
+FROM Products;
+
+SELECT * FROM Customers
+WHERE City LIKE '
+[acs]
+%';
+
+List the number of customers in each country.
+
+
+SELECT 
+count
+(CustomerID),
+Country
+FROM Customers
+group by country
+;
+
+List the number of customers in each country, ordered by the country with the most customers first.
+
+
+SELECT 
+COUNT
+(CustomerID),
+Country
+FROM Customers
+GROUP BY Country
+ORDER BY 
+COUNT(CustomerID) DESC
+;
+
+delete from customers where country ="Norway"
+
+SELECT AVG(Price)
+FROM Products;
+
+Delete the column Birthday from the Persons table.
+
+
+ALTER TABLE
+ Persons
+DROP COLUMN
+ Birthday;
+
+partition by example:
+
+with duplicates as
+(
+    select
+        *
+        ,ROW_NUMBER() OVER (PARTITION BY FirstName, LastName, age ORDER BY FirstName) AS number
+    from yourTable
+)
+delete 
+from duplicates
+where number > 1
+
